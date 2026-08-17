@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { AppleMark, FlameIcon } from '@/components/icons'
+import { FlameIcon, PlateMark } from '@/components/icons'
 import { DayRing, ProgressRing } from '@/components/progress-ring'
 import { requireUser } from '@/lib/dal'
 import {
@@ -78,8 +78,8 @@ export default async function HomePage({
     <div className="flex flex-col gap-5 pt-2">
       <header className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <AppleMark size={30} />
-          <span className="text-[27px] font-bold tracking-[-0.03em]">Cal AI</span>
+          <PlateMark size={30} />
+          <span className="text-[27px] font-bold tracking-[-0.03em]">Plate</span>
         </div>
         <Link
           href="/progress"
@@ -164,7 +164,7 @@ export default async function HomePage({
         <Link href="/onboarding" className="card flex flex-col gap-2 p-5">
           <span className="text-[17px] font-semibold">Set your daily targets</span>
           <span className="label-muted">
-            Answer a few questions and Cal AI will work out your calories and macros.
+            Answer a few questions and Plate will work out your calories and macros.
           </span>
         </Link>
       )}

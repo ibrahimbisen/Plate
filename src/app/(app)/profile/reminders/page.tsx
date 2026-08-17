@@ -5,7 +5,7 @@ import { reminders } from '@/db/schema'
 import { requireUser } from '@/lib/dal'
 import { RemindersForm } from './reminders-form'
 
-export const metadata = { title: 'Tracking reminders · Cal AI' }
+export const metadata = { title: 'Tracking reminders · Plate' }
 export const dynamic = 'force-dynamic'
 
 export default async function RemindersPage() {

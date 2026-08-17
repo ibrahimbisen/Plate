@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server'
 
-import { getSession } from '@/lib/dal'
-
 /**
  * Server-side speech-to-text.
  *
@@ -17,9 +15,6 @@ export const runtime = 'nodejs'
 export const maxDuration = 60
 
 export async function POST(request: Request) {
-  const session = await getSession()
-  if (!session) return NextResponse.json({ error: 'Not signed in.' }, { status: 401 })
-
   const endpoint = process.env.STT_ENDPOINT
   if (!endpoint) {
     return NextResponse.json(

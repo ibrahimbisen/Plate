@@ -8,20 +8,22 @@ import { revalidatePath } from 'next/cache'
 
 import { db } from '@/db'
 import { nutritionGoals, users } from '@/db/schema'
-import { verifySession } from '@/lib/dal'
-import { todayLocal } from '@/lib/date'
+import { getCurrentUser } from '@/lib/dal'
+import { safeTimeZone, todayLocal } from '@/lib/date'
 import { computeGoals, type OnboardingInput } from '@/lib/goals'
 
-export async function completeOnboarding(input: OnboardingInput): Promise<void> {
-  const { userId } = await verifySession()
+export async function completeOnboarding(input: OnboardingInput, timezone: string): Promise<void> {
+  const user = await getCurrentUser()
+  if (!user) throw new Error('No user row found.')
 
-  const existing = (await db.select().from(users).where(eq(users.id, userId)).limit(1))[0]
-  const today = todayLocal(existing?.timezone ?? 'UTC')
+  const tz = safeTimeZone(timezone)
+  const today = todayLocal(tz)
   const derived = computeGoals(input, today)
 
   await db
     .update(users)
     .set({
+      timezone: tz,
       firstName: input.firstName.trim(),
       lastName: input.lastName.trim(),
       username: input.firstName.trim().toLowerCase().replace(/[^a-z0-9]/g, '') || 'me',
@@ -35,11 +37,11 @@ export async function completeOnboarding(input: OnboardingInput): Promise<void> 
       units: input.units,
       onboardedAt: new Date(),
     })
-    .where(eq(users.id, userId))
+    .where(eq(users.id, user.id))
 
   await db.insert(nutritionGoals).values({
     id: randomUUID(),
-    userId,
+    userId: user.id,
     effectiveFrom: today,
     calories: derived.calories,
     proteinG: derived.macros.proteinG,

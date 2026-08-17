@@ -13,7 +13,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - run: npm ci --no-audit --no-fund
@@ -26,9 +26,6 @@ jobs:
 
       - name: Build
         run: npm run build
-        env:
-          SESSION_SECRET: ci-placeholder-secret-value-not-used
-          APP_PASSWORD: ci
 
       # Guards vercel/next.js#88844: a Turbopack standalone build silently omits
       # serverExternalPackages, producing an image that dies at boot. The build

@@ -46,7 +46,7 @@ export function InstallGuide() {
   if (deferred) {
     return (
       <button type="button" className="btn-primary" onClick={() => void deferred.prompt()}>
-        Install Cal AI
+        Install Plate
       </button>
     )
   }
@@ -57,13 +57,13 @@ export function InstallGuide() {
           'Tap the Share button in the Safari toolbar.',
           'Scroll down and tap "Add to Home Screen".',
           'Tap "Add" in the top right.',
-          'Open Cal AI from your Home Screen — it runs full screen from now on.',
+          'Open Plate from your Home Screen — it runs full screen from now on.',
         ]
       : platform === 'android'
         ? [
             'Tap the three-dot menu in Chrome.',
             'Tap "Add to Home screen" or "Install app".',
-            'Confirm, then open Cal AI from your launcher.',
+            'Confirm, then open Plate from your launcher.',
           ]
         : [
             'Open this page in Chrome, Edge, or Safari on your phone.',

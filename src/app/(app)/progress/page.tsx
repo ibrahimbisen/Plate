@@ -32,7 +32,7 @@ import {
 } from '@/lib/metrics'
 import { formatLongDate } from '@/lib/date'
 
-export const metadata = { title: 'Progress · Cal AI' }
+export const metadata = { title: 'Progress · Plate' }
 export const dynamic = 'force-dynamic'
 
 export default async function ProgressPage() {

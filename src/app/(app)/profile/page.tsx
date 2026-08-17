@@ -1,18 +1,16 @@
 import Link from 'next/link'
 
-import { logout } from '@/app/actions/auth'
 import {
   BellIcon,
   ChevronRight,
   IdIcon,
-  LogoutIcon,
   SettingsIcon,
   ShareIcon,
   TargetIcon,
 } from '@/components/icons'
 import { requireUser } from '@/lib/dal'
 
-export const metadata = { title: 'Profile · Cal AI' }
+export const metadata = { title: 'Profile · Plate' }
 export const dynamic = 'force-dynamic'
 
 const GROUPS = [
@@ -87,15 +85,8 @@ export default async function ProfilePage() {
         </section>
       ))}
 
-      <form action={logout}>
-        <button type="submit" className="card flex w-full items-center gap-3 px-4 py-4 text-bad">
-          <LogoutIcon size={21} />
-          <span className="text-[16px] font-medium">Log out</span>
-        </button>
-      </form>
-
       <p className="px-1 pb-2 text-center text-[13px] text-ink-muted">
-        Self-hosted Cal AI · your data stays on your server
+        Self-hosted Plate · your data stays on your server
       </p>
     </div>
   )

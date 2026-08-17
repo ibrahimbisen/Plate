@@ -11,6 +11,7 @@ import {
   CloseIcon,
   DumbbellIcon,
   HomeIcon,
+  MicIcon,
   PersonIcon,
   PlusIcon,
   ScanIcon,
@@ -28,6 +29,7 @@ const ACTIONS = [
   { href: '/log/barcode', label: 'Scan barcode', Icon: BarcodeIcon },
   { href: '/log/search', label: 'Food Database', Icon: SearchIcon },
   { href: '/log/scan', label: 'Scan food', Icon: ScanIcon },
+  { href: '/log/voice', label: 'Voice log', Icon: MicIcon },
 ]
 
 export function TabBar({ initials }: { initials: string }) {
@@ -75,7 +77,7 @@ export function TabBar({ initials }: { initials: string }) {
                 type="button"
                 onClick={() => go(href)}
                 style={{ animationDelay: `${i * 28}ms` }}
-                className="card flex animate-[pop_.22s_cubic-bezier(.2,.9,.3,1.2)_both] flex-col items-center gap-2.5 px-4 py-6 active:scale-[0.97] transition-transform"
+                className="card flex animate-[pop_.22s_cubic-bezier(.2,.9,.3,1.2)_both] flex-col items-center gap-2.5 px-4 py-6 active:scale-[0.97] transition-transform last:col-span-2"
               >
                 <Icon size={26} />
                 <span className="text-[15px] font-semibold">{label}</span>

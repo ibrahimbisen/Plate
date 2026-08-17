@@ -1,7 +1,7 @@
 import { ScreenHeader } from '@/components/screen-header'
 import { requireUser } from '@/lib/dal'
 
-export const metadata = { title: 'Ring colours · Cal AI' }
+export const metadata = { title: 'Ring colours · Plate' }
 
 const LEGEND = [
   {

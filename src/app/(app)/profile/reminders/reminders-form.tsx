@@ -54,7 +54,7 @@ export function RemindersForm({ initial }: { initial: Reminder[] }) {
       */}
       {!standalone && (
         <div className="card flex flex-col gap-2 p-4">
-          <p className="text-[15px] font-semibold">Add Cal AI to your Home Screen first</p>
+          <p className="text-[15px] font-semibold">Add Plate to your Home Screen first</p>
           <p className="label-muted text-[14px]">
             On iPhone, reminders can only be delivered to an installed app. Until then these
             settings are saved but will not notify you.

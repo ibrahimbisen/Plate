@@ -65,7 +65,10 @@ export function OnboardingFlow() {
 
   function next() {
     if (step < STEPS.length - 1) setStep((s) => s + 1)
-    else startTransition(() => void completeOnboarding(input))
+    else {
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+      startTransition(() => void completeOnboarding(input, timezone))
+    }
   }
 
   return (
@@ -190,7 +193,7 @@ export function OnboardingFlow() {
               })}
             </div>
             <p className="label-muted text-[13px]">
-              This is a starting point only. Once you have about three weeks of data, Cal AI
+              This is a starting point only. Once you have about three weeks of data, Plate
               measures your actual energy expenditure and stops relying on this estimate.
             </p>
           </Step>
@@ -254,8 +257,8 @@ export function OnboardingFlow() {
               <p className="rounded-2xl bg-fill p-4 text-[14px] leading-relaxed text-ink-soft">
                 <strong className="font-semibold">Your pace was eased back.</strong>{' '}
                 {preview.floorReason === 'bmr'
-                  ? 'The pace you picked would put you below the energy your body uses at rest, so Cal AI set the target there instead.'
-                  : 'The pace you picked would fall below a safe daily minimum, so Cal AI set the target there instead.'}{' '}
+                  ? 'The pace you picked would put you below the energy your body uses at rest, so Plate set the target there instead.'
+                  : 'The pace you picked would fall below a safe daily minimum, so Plate set the target there instead.'}{' '}
                 You&rsquo;ll lose about{' '}
                 <strong className="font-semibold">
                   {Math.abs(
@@ -282,7 +285,7 @@ export function OnboardingFlow() {
                 />
                 <p className="pt-1 text-[13px]">
                   Activity multipliers are a common convention rather than a measured value, so
-                  treat this as a starting estimate. Cal AI replaces it with your real expenditure
+                  treat this as a starting estimate. Plate replaces it with your real expenditure
                   once it has a few weeks of weight and food data.
                 </p>
               </div>

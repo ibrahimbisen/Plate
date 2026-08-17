@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server'
 
 import { db } from '@/db'
 import { barcodeCache, foodLogs, foods } from '@/db/schema'
-import { getSession } from '@/lib/dal'
+import { requireUser } from '@/lib/dal'
 import { normalizeBarcode } from '@/lib/food/barcode'
 import { lookupBarcode, searchOff, type OffFood } from '@/lib/food/off'
 
@@ -88,9 +88,6 @@ async function persistOff(off: OffFood): Promise<typeof foods.$inferSelect> {
 }
 
 export async function GET(request: Request) {
-  const session = await getSession()
-  if (!session) return NextResponse.json({ error: 'Not signed in.' }, { status: 401 })
-
   const url = new URL(request.url)
   const barcode = url.searchParams.get('barcode')
   const query = (url.searchParams.get('q') ?? '').trim()
@@ -153,6 +150,7 @@ export async function GET(request: Request) {
   // -------------------------------------------------------------- search
   if (!query) {
     // Empty query: the "Recently logged" list, deduped by name.
+    const user = await requireUser()
     const recent = await db
       .select({
         name: foodLogs.name,
@@ -163,7 +161,7 @@ export async function GET(request: Request) {
         at: sql<number>`max(${foodLogs.loggedAt})`,
       })
       .from(foodLogs)
-      .where(eq(foodLogs.userId, session.userId))
+      .where(eq(foodLogs.userId, user.id))
       .groupBy(foodLogs.name)
       .orderBy(desc(sql`max(${foodLogs.loggedAt})`))
       .limit(25)

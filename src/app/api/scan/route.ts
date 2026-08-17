@@ -7,7 +7,6 @@ import {
   analyzeLabel,
   analyzeMealPhoto,
 } from '@/lib/ai'
-import { getSession } from '@/lib/dal'
 import { healthScore } from '@/lib/health-score'
 import { resolveStoredPath, storePhoto, toBase64 } from '@/lib/photos'
 
@@ -23,9 +22,6 @@ export const runtime = 'nodejs'
 export const maxDuration = 120
 
 export async function POST(request: Request) {
-  const session = await getSession()
-  if (!session) return NextResponse.json({ error: 'Not signed in.' }, { status: 401 })
-
   if (!aiEnabled()) {
     return NextResponse.json(
       {

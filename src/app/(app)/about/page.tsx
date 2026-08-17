@@ -1,7 +1,7 @@
 import { ScreenHeader } from '@/components/screen-header'
 import { requireUser } from '@/lib/dal'
 
-export const metadata = { title: 'About · Cal AI' }
+export const metadata = { title: 'About · Plate' }
 
 export default async function AboutPage() {
   await requireUser()

@@ -3,13 +3,12 @@ import { redirect } from 'next/navigation'
 import { getCurrentUser } from '@/lib/dal'
 import { OnboardingFlow } from './flow'
 
-export const metadata = { title: 'Set up · Cal AI' }
+export const metadata = { title: 'Set up · Plate' }
 export const dynamic = 'force-dynamic'
 
 export default async function OnboardingPage() {
   const user = await getCurrentUser()
-  if (!user) redirect('/login')
-  if (user.onboardedAt) redirect('/')
+  if (user?.onboardedAt) redirect('/')
 
   return (
     <div className="app-frame">

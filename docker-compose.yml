@@ -2,15 +2,11 @@ services:
   app:
     build: .
     # Or, once you publish an image:
-    # image: ghcr.io/you/cal-ai-web:latest
+    # image: ghcr.io/you/plate:latest
     restart: unless-stopped
     ports:
       - '3000:3000'
     environment:
-      # Required. Generate the secret with: openssl rand -base64 32
-      SESSION_SECRET: ${SESSION_SECRET:?set SESSION_SECRET in .env}
-      APP_PASSWORD: ${APP_PASSWORD:?set APP_PASSWORD in .env}
-
       # Optional — enables photo scanning and natural-language logging.
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
       ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-opus-5}
@@ -31,7 +27,7 @@ services:
       # Mount the DIRECTORY, never the .db file. WAL mode creates app.db-wal and
       # app.db-shm beside it; bind-mounting the single file puts those sidecars
       # on the container's ephemeral layer and corrupts the database on restart.
-      - calai-data:/data
+      - plate-data:/data
 
 volumes:
-  calai-data:
+  plate-data:

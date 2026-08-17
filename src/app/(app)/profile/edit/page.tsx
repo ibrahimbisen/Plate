@@ -1,7 +1,7 @@
 import { requireUser } from '@/lib/dal'
 import { EditProfileForm } from './edit-form'
 
-export const metadata = { title: 'Edit profile · Cal AI' }
+export const metadata = { title: 'Edit profile · Plate' }
 export const dynamic = 'force-dynamic'
 
 export default async function EditProfilePage() {

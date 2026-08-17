@@ -5,7 +5,7 @@ import { weightEntries } from '@/db/schema'
 import { requireUser } from '@/lib/dal'
 import { WeightFlow } from './weight-flow'
 
-export const metadata = { title: 'Weight · Cal AI' }
+export const metadata = { title: 'Weight · Plate' }
 export const dynamic = 'force-dynamic'
 
 export default async function WeightPage() {

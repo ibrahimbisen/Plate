@@ -3,12 +3,12 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Cal AI',
+  title: 'Plate',
   description: 'Track calories and macros from a photo, a barcode, or your voice.',
-  applicationName: 'Cal AI',
+  applicationName: 'Plate',
   appleWebApp: {
     capable: true,
-    title: 'Cal AI',
+    title: 'Plate',
     // Content runs under the status bar, which is why the shell applies
     // env(safe-area-inset-top).
     statusBarStyle: 'black-translucent',
@@ -44,7 +44,7 @@ export const viewport: Viewport = {
 const THEME_SCRIPT = `
 (function () {
   try {
-    var pref = localStorage.getItem('calai-appearance') || 'system';
+    var pref = localStorage.getItem('plate-appearance') || 'system';
     var dark = pref === 'dark' ||
       (pref === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
     document.documentElement.classList.toggle('dark', dark);

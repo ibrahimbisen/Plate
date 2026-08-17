@@ -17,7 +17,7 @@ const BASE = 'https://world.openfoodfacts.org'
  *  which is the whole reason these calls are proxied through our server. */
 function userAgent(): string {
   const contact = process.env.OFF_CONTACT_EMAIL || 'selfhosted@example.org'
-  return `CalAI-SelfHosted/0.1 (${contact})`
+  return `Plate-SelfHosted/0.1 (${contact})`
 }
 
 /** Only the nutrients we actually map. `nutriments` also contains things that

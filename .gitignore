@@ -25,7 +25,7 @@ data/
 uploads/
 
 # the user's personal reference screenshots are not part of the project
-Cal AI screenshots/
+reference screenshots/
 
 # os
 .DS_Store

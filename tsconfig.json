@@ -37,6 +37,6 @@
   ],
   "exclude": [
     "node_modules",
-    "Cal AI screenshots"
+    "reference screenshots"
   ]
 }

@@ -1,7 +1,7 @@
 import { requireUser } from '@/lib/dal'
 import { BarcodeFlow } from './barcode-flow'
 
-export const metadata = { title: 'Scan barcode · Cal AI' }
+export const metadata = { title: 'Scan barcode · Plate' }
 export const dynamic = 'force-dynamic'
 
 export default async function BarcodePage() {

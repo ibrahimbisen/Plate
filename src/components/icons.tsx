@@ -260,13 +260,6 @@ export const CheckIcon = (p: IconProps) => (
   </Svg>
 )
 
-export const LogoutIcon = (p: IconProps) => (
-  <Svg {...p}>
-    <path d="M14 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4" />
-    <path d="M10 8 6 12l4 4M6 12h9" />
-  </Svg>
-)
-
 export const ImageIcon = (p: IconProps) => (
   <Svg {...p}>
     <rect x="3" y="5" width="18" height="14" rx="2" />
@@ -275,8 +268,12 @@ export const ImageIcon = (p: IconProps) => (
   </Svg>
 )
 
-/** The apple mark in the header — solid, matching the wordmark lockup. */
-export const AppleMark = ({ size = 28, className }: IconProps) => (
+/**
+ * The mark in the header — a plate drawn as a ring, echoing the app's own
+ * progress rings (DayRing/ProgressRing), with a single bite centered on it.
+ * Solid, matching the wordmark lockup.
+ */
+export const PlateMark = ({ size = 28, className }: IconProps) => (
   <svg
     width={size}
     height={size}
@@ -285,7 +282,11 @@ export const AppleMark = ({ size = 28, className }: IconProps) => (
     className={className}
     aria-hidden="true"
   >
-    <path d="M12.2 6.6c2.9-1.4 5.6.3 6.4 2.4 1 2.6.1 6.5-1.7 9-.9 1.2-1.8 2.4-3.1 2.4-1.2 0-1.7-.8-3.1-.8s-1.9.8-3.1.8c-1.3 0-2.3-1.3-3.2-2.5-2-2.9-2.6-7.6-.6-10 1-1.2 2.4-1.9 3.9-1.9 1.4 0 2.3.9 3.5.9.4 0 .6-.1 1-.3Z" />
-    <path d="M13.9 2c.2 1-.2 2-.8 2.7-.6.7-1.6 1.3-2.6 1.2-.2-1 .3-2 .9-2.7.6-.7 1.7-1.2 2.5-1.2Z" />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Zm0-4.4a5.6 5.6 0 1 0 0-11.2 5.6 5.6 0 0 0 0 11.2Z"
+    />
+    <circle cx="12" cy="12" r="2.1" />
   </svg>
 )

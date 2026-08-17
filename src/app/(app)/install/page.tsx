@@ -2,7 +2,7 @@ import { ScreenHeader } from '@/components/screen-header'
 import { requireUser } from '@/lib/dal'
 import { InstallGuide } from './install-guide'
 
-export const metadata = { title: 'Add to Home Screen · Cal AI' }
+export const metadata = { title: 'Add to Home Screen · Plate' }
 
 export default async function InstallPage() {
   await requireUser()

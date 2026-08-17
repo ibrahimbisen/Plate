@@ -1,13 +1,13 @@
 {
-  "name": "cal-ai-web",
+  "name": "plate",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=20.9.0"
+    "node": ">=22"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --webpack",
     "build": "next build --webpack",
     "start": "next start",
     "typecheck": "tsc --noEmit",
@@ -21,7 +21,6 @@
     "barcode-detector": "^3.2.2",
     "better-sqlite3": "^13.0.3",
     "drizzle-orm": "^0.45.2",
-    "jose": "^6.2.9",
     "next": "^16.3.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",

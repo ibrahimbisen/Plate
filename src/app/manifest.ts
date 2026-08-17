@@ -2,8 +2,8 @@ import type { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Cal AI — Calorie Tracker',
-    short_name: 'Cal AI',
+    name: 'Plate — Calorie Tracker',
+    short_name: 'Plate',
     description: 'Track calories and macros from a photo, a barcode, or your voice.',
     start_url: '/',
     scope: '/',

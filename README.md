@@ -26,7 +26,8 @@ server — your food log and your photos never leave it.
 
 ## Requirements
 
-- Node 20.9+ (or Docker)
+- Node 22+ (or Docker) — `better-sqlite3`'s native binding requires it; older
+  Node versions crash on first database access
 - An Anthropic API key — **optional**. Without one, photo scanning and
   natural-language logging are disabled; everything else works.
 
@@ -38,31 +39,69 @@ server — your food log and your photos never leave it.
 git clone https://github.com/ibrahimbisen/Plate.git && cd Plate
 cp .env.example .env
 
-# Required
-echo "SESSION_SECRET=$(openssl rand -base64 32)" >> .env
-echo "APP_PASSWORD=pick-something-only-you-know" >> .env
-
 # Optional — enables photo scanning
 echo "ANTHROPIC_API_KEY=sk-ant-..." >> .env
 
 docker compose up -d
 ```
 
-Open `http://localhost:3000` and sign in with your `APP_PASSWORD`.
+Open `http://localhost:3000` — there's no sign-in step; see
+["No built-in authentication"](#no-built-in-authentication) below before putting
+this anywhere reachable beyond your own machine.
 
 ## Quick start (local)
 
 ```bash
 npm install
 cp .env.example .env
-echo "SESSION_SECRET=$(openssl rand -base64 32)" >> .env
-echo "APP_PASSWORD=devpass" >> .env
 
-npm run db:generate   # only after changing the schema
 npm run dev
 ```
 
+## Quick start (production, no Docker)
+
+```bash
+git clone https://github.com/ibrahimbisen/Plate.git && cd Plate
+npm ci
+cp .env.example .env
+npm run build
+npm run db:migrate
+npm start -- -H 127.0.0.1 -p 3000
+```
+
+Keep it running with whatever process manager your host already uses, e.g. pm2:
+
+```bash
+pm2 start npm --name plate -- start -- -H 127.0.0.1 -p 3000
+pm2 save
+```
+
+`output: 'standalone'` in `next.config.ts` exists for the Docker image's benefit (a slim
+runtime without full `node_modules`) — running `next start` from a full checkout, as above,
+doesn't use it and needs no extra copy step. Unlike `npm run dev`, nothing runs migrations for
+you: `npm run db:migrate` is required before the first boot and after every schema change.
+Point a reverse proxy or tunnel at whatever port you chose — see
+["Putting it on your own domain"](#putting-it-on-your-own-domain) below.
+
 ---
+
+## No built-in authentication
+
+Plate has no login and no password. Anyone who can reach the server on the
+network gets full access — your food log and, more sensitively, your meal and
+body photos (served straight from `/api/photos/...` with no access check at
+all). This is a deliberate simplicity trade-off for a single-user, personal
+tool, not an oversight.
+
+That's fine on a machine only you can reach (`localhost`, or a home LAN you
+trust). Before putting it anywhere else, put something in front of it:
+
+- A reverse proxy with HTTP basic auth (nginx `auth_basic`, Caddy
+  `basicauth`), or
+- A VPN/tunnel (Tailscale, WireGuard) so the port is never exposed publicly, or
+- Your proxy's own auth layer (Cloudflare Access, Authelia, etc.)
+
+Do not put this on the open internet with nothing in front of it.
 
 ## Putting it on your own domain
 
@@ -95,10 +134,6 @@ tracker.example.com {
 }
 ```
 
-Running on a trusted LAN over plain HTTP? Set `ALLOW_INSECURE_COOKIE=true`, which
-drops the `Secure` flag so the session cookie survives. Don't do this on the
-public internet.
-
 ---
 
 ## Configuration
@@ -108,8 +143,6 @@ matter:
 
 | Variable | Required | Notes |
 | --- | --- | --- |
-| `SESSION_SECRET` | yes | `openssl rand -base64 32` |
-| `APP_PASSWORD` | yes | Single-user passcode |
 | `ANTHROPIC_API_KEY` | no | Enables photo scan and voice parsing |
 | `ANTHROPIC_MODEL` | no | Defaults to `claude-opus-5`; swap for a cheaper tier |
 | `PHOTO_MAX_EDGE` | no | Downscale target, default 1568px |

@@ -5,7 +5,7 @@ import { nutritionGoals } from '@/db/schema'
 import { requireUser } from '@/lib/dal'
 import { GoalsForm } from './goals-form'
 
-export const metadata = { title: 'Nutrition goals · Cal AI' }
+export const metadata = { title: 'Nutrition goals · Plate' }
 export const dynamic = 'force-dynamic'
 
 export default async function GoalsPage() {

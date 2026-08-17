@@ -46,7 +46,7 @@ export function PreferencesForm({ initial }: { initial: Preferences }) {
           window.matchMedia('(prefers-color-scheme: dark)').matches)
       document.documentElement.classList.toggle('dark', dark)
     }
-    localStorage.setItem('calai-appearance', state.appearance)
+    localStorage.setItem('plate-appearance', state.appearance)
     apply()
 
     if (state.appearance !== 'system') return
