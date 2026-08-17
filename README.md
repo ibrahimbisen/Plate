@@ -1,9 +1,40 @@
 # Plate — self-hosted calorie tracker
 
-A mobile-first, installable web app for tracking calories and macros. Photograph a
-meal and it breaks it into ingredients with editable gram weights; or scan a
-barcode, search a bundled food database, or type it in. Runs entirely on your own
-server — your food log and your photos never leave it.
+## Why this exists
+
+I was paying a monthly subscription for Cal AI to track calories. At some
+point it clicked: underneath the subscription is a food database, some
+arithmetic, a chart or two, and one AI call that turns a meal photo into a
+list of ingredients. That's a couple of scripts, a database, and an image
+analyzer — not something that needs to live behind someone else's server and
+a recurring bill.
+
+So I built the same idea for myself: log meals by photo, barcode, voice, or
+search; get calorie and macro targets computed from your own numbers; watch
+the trend, not just today's count. It runs on hardware you own, your food log
+and photos never leave your server, and the only recurring cost is one you
+control — an AI API key, and only if you want photo scanning at all.
+
+## What it looks like
+
+<table>
+<tr>
+<td><img src="docs/screenshots/home.png" width="260" alt="Home screen with calorie and macro rings, a day streak, and recently logged meals"></td>
+<td><img src="docs/screenshots/log-food.png" width="260" alt="Logging a meal by search, manual entry, or voice"></td>
+</tr>
+<tr>
+<td align="center"><sub>Today's calories and macros, a day streak, and what you've logged</sub></td>
+<td align="center"><sub>Search, manual entry, or voice — whatever's fastest in the moment</sub></td>
+</tr>
+<tr>
+<td><img src="docs/screenshots/scan.png" width="260" alt="AI photo scan screen prompting to take a photo of your meal"></td>
+<td><img src="docs/screenshots/progress.png" width="260" alt="Progress screen with a weight trend chart toward a goal"></td>
+</tr>
+<tr>
+<td align="center"><sub>Photograph a meal and a vision model breaks it into ingredients</sub></td>
+<td align="center"><sub>A trend line and a goal, not just a number that resets every midnight</sub></td>
+</tr>
+</table>
 
 > **Not medical advice.** Targets come from population-level formulas with safety
 > floors applied. They are not appropriate during pregnancy, for children, or with
