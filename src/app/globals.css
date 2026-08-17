@@ -35,9 +35,21 @@
   --accent: #101012; /* primary action = near-black pill */
   --accent-ink: #ffffff;
 
-  --protein: #ef5b5b;
-  --carbs: #d9973e;
-  --fat: #5b9bef;
+  /* Macro hues. Re-stepped from the reference app's palette, which failed the
+     normal-vision separation floor: its red and amber sat at ΔE 14.8, too close
+     to tell apart even with full colour vision. These pass all pairs in light
+     mode. Macro colour is never the sole identity channel — every appearance
+     carries a text label and an icon beside it. */
+  --protein: #dc2626;
+  --carbs: #ca8a04;
+  --fat: #2563eb;
+
+  /* Chart series. Burned vs consumed is the one place colour alone could carry
+     identity, so it uses a fully validated pair: ΔE 31.7 protan / 31.6 tritan,
+     and it passes in BOTH themes. The app's original tan-vs-green scored ΔE 3.3
+     for deuteranopia — invisible to roughly one man in twelve. */
+  --series-burned: #c2410c;
+  --series-consumed: #2563eb;
 
   --good: #34c759;
   --warn: #ffcc00;
@@ -73,9 +85,14 @@
   --accent: #ffffff;
   --accent-ink: #101012;
 
-  --protein: #ff6b6b;
-  --carbs: #e8a854;
-  --fat: #6faaff;
+  /* Dark steps sit in the dark band (OKLCH L 0.48-0.67) rather than being pale
+     tints of the light values — a flipped palette washes out on a dark surface. */
+  --protein: #e5484d;
+  --carbs: #a87c00;
+  --fat: #4f8ff7;
+
+  --series-burned: #c2410c;
+  --series-consumed: #2563eb;
 
   --good: #30d158;
   --warn: #ffd60a;
@@ -106,6 +123,9 @@
   --color-protein: var(--protein);
   --color-carbs: var(--carbs);
   --color-fat: var(--fat);
+
+  --color-burned: var(--series-burned);
+  --color-consumed: var(--series-consumed);
 
   --color-good: var(--good);
   --color-warn: var(--warn);
