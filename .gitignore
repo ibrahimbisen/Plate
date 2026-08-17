@@ -8,6 +8,7 @@ node_modules/
 out/
 next-env.d.ts
 *.tsbuildinfo
+dev.log
 
 # secrets — never commit
 .env
@@ -34,3 +35,6 @@ Thumbs.db
 # editor
 .vscode/
 .idea/
+
+# local-only agent instructions
+CLAUDE.md

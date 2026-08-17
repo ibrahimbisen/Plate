@@ -1,4 +1,4 @@
-# Cal AI — self-hosted calorie tracker
+# Plate — self-hosted calorie tracker
 
 A mobile-first, installable web app for tracking calories and macros. Photograph a
 meal and it breaks it into ingredients with editable gram weights; or scan a
@@ -35,7 +35,7 @@ server — your food log and your photos never leave it.
 ## Quick start (Docker)
 
 ```bash
-git clone <your-fork> cal-ai && cd cal-ai
+git clone https://github.com/ibrahimbisen/Plate.git && cd Plate
 cp .env.example .env
 
 # Required
@@ -130,8 +130,8 @@ Everything lives under one directory — the SQLite database and your photos:
 
 ```bash
 docker compose stop app
-docker run --rm -v calai-data:/data -v "$PWD:/backup" \
-  busybox tar czf /backup/calai-$(date +%F).tar.gz /data
+docker run --rm -v plate-data:/data -v "$PWD:/backup" \
+  busybox tar czf /backup/plate-$(date +%F).tar.gz /data
 docker compose start app
 ```
 
