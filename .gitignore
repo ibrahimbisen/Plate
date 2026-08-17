@@ -1,0 +1,36 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.*
+
+# next
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# secrets — never commit
+.env
+.env.local
+.env*.local
+
+# runtime data: the database, its WAL sidecars, and user uploads
+data/
+!data/seed/
+!data/seed/.gitkeep
+*.db
+*.db-wal
+*.db-shm
+uploads/
+
+# the user's personal reference screenshots are not part of the project
+Cal AI screenshots/
+
+# os
+.DS_Store
+._*
+Thumbs.db
+
+# editor
+.vscode/
+.idea/

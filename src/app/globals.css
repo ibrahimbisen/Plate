@@ -1,0 +1,367 @@
+@import 'tailwindcss';
+
+/* Manual theme override. :where() has zero specificity, which matters — it lets
+   any real utility beat the variant without an escalation war. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------------------------------------------------------------------------
+   Semantic variables. Declared on :root / .dark as plain CSS custom properties,
+   then mapped into the theme with `@theme inline` below.
+
+   `inline` is load-bearing: without it Tailwind freezes the value at build time
+   and `bg-card` would emit the light color in both themes.
+   --------------------------------------------------------------------------- */
+
+:root {
+  color-scheme: light;
+
+  --page: #f7f7f8;
+  --page-wash-a: rgba(255, 226, 220, 0.5); /* warm top-left bloom */
+  --page-wash-b: rgba(216, 231, 255, 0.45); /* cool bottom-right bloom */
+
+  --card: #ffffff;
+  --card-muted: #f7f7f9; /* inset rows inside a card */
+  --fill: #f2f2f7; /* iOS systemGray6 — tertiary buttons, chips */
+  --fill-strong: #e9e9ee;
+
+  --ink: #101012; /* headings, hero numerals */
+  --ink-soft: #3a3a3c;
+  --ink-muted: #8a8a8e; /* iOS systemGray — labels */
+  --ink-faint: #c2c2c7; /* future days, disabled */
+
+  --line: rgba(0, 0, 0, 0.07);
+  --track: #ececf1; /* unfilled part of every ring and bar */
+
+  --accent: #101012; /* primary action = near-black pill */
+  --accent-ink: #ffffff;
+
+  --protein: #ef5b5b;
+  --carbs: #d9973e;
+  --fat: #5b9bef;
+
+  --good: #34c759;
+  --warn: #ffcc00;
+  --bad: #ff3b30;
+
+  --avatar-from: #4ecb71;
+  --avatar-to: #35b9a8;
+
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-lift: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.dark {
+  color-scheme: dark;
+
+  --page: #000000;
+  --page-wash-a: rgba(90, 40, 60, 0.28);
+  --page-wash-b: rgba(30, 55, 95, 0.28);
+
+  --card: #1c1c1e;
+  --card-muted: #232325;
+  --fill: #2c2c2e;
+  --fill-strong: #3a3a3c;
+
+  --ink: #ffffff;
+  --ink-soft: #ebebf0;
+  --ink-muted: #8e8e93;
+  --ink-faint: #48484a;
+
+  --line: rgba(255, 255, 255, 0.1);
+  --track: #2c2c2e;
+
+  --accent: #ffffff;
+  --accent-ink: #101012;
+
+  --protein: #ff6b6b;
+  --carbs: #e8a854;
+  --fat: #6faaff;
+
+  --good: #30d158;
+  --warn: #ffd60a;
+  --bad: #ff453a;
+
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-lift: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+@theme inline {
+  --color-page: var(--page);
+  --color-card: var(--card);
+  --color-card-muted: var(--card-muted);
+  --color-fill: var(--fill);
+  --color-fill-strong: var(--fill-strong);
+
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-faint: var(--ink-faint);
+
+  --color-line: var(--line);
+  --color-track: var(--track);
+
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+
+  --color-protein: var(--protein);
+  --color-carbs: var(--carbs);
+  --color-fat: var(--fat);
+
+  --color-good: var(--good);
+  --color-warn: var(--warn);
+  --color-bad: var(--bad);
+
+  /* Cards in the screenshots are a consistent 24pt radius; pills are fully round. */
+  --radius-card: 24px;
+  --radius-tile: 20px;
+  --radius-chip: 999px;
+
+  --shadow-card: var(--shadow-card);
+  --shadow-lift: var(--shadow-lift);
+
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+
+  /* Numerals are the hero of every card. */
+  --text-hero: 4rem;
+  --text-hero--line-height: 1;
+  --text-hero--letter-spacing: -0.045em;
+  --text-hero--font-weight: 700;
+
+  --text-stat: 2rem;
+  --text-stat--line-height: 1.1;
+  --text-stat--letter-spacing: -0.03em;
+  --text-stat--font-weight: 700;
+
+  --text-title: 1.75rem;
+  --text-title--line-height: 1.15;
+  --text-title--letter-spacing: -0.025em;
+  --text-title--font-weight: 700;
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+   --------------------------------------------------------------------------- */
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html,
+  body {
+    height: 100%;
+    /* Removing the ROOT scroll container is what actually kills iOS rubber-band
+       and pull-to-refresh-reloads-the-PWA. overscroll-behavior alone is ignored
+       on the root scroller in Safari. */
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  body {
+    background-color: var(--color-page);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Below 16px iOS zooms the viewport on focus and never zooms back out.
+     Tailwind's text-sm on an input is the classic way to trigger this. */
+  input,
+  select,
+  textarea {
+    font-size: max(16px, 1rem);
+  }
+
+  button,
+  a,
+  [role='button'],
+  label {
+    /* Removes the ~350ms tap delay without disabling pinch-zoom. */
+    touch-action: manipulation;
+  }
+
+  /* Chrome/Safari number spinners, which we never want. */
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-accent) 20%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   App shell
+   --------------------------------------------------------------------------- */
+
+@layer components {
+  /* The atmospheric wash behind everything. Two soft radial blooms, warm at the
+     top and cool at the bottom, exactly as in the screenshots. */
+  .app-frame {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-page);
+    background-image:
+      radial-gradient(120% 60% at 12% -8%, var(--page-wash-a) 0%, transparent 60%),
+      radial-gradient(120% 70% at 92% 108%, var(--page-wash-b) 0%, transparent 62%);
+  }
+
+  /* The only scrolling element. Momentum is default since iOS 13. */
+  .app-scroll {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding-inline: 16px;
+    padding-top: max(12px, env(safe-area-inset-top));
+    /* Clear the floating tab bar plus the home indicator. */
+    padding-bottom: calc(112px + env(safe-area-inset-bottom));
+  }
+
+  .app-shell {
+    width: 100%;
+    max-width: 480px;
+    margin-inline: auto;
+  }
+
+  .card {
+    background: var(--color-card);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Full-width primary action. ~56px tall, fully round, near-black. */
+  .btn-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    min-height: 56px;
+    padding-inline: 24px;
+    border-radius: var(--radius-chip);
+    background: var(--color-accent);
+    color: var(--color-accent-ink);
+    font-size: 17px;
+    font-weight: 600;
+    transition: transform 0.12s ease, opacity 0.12s ease;
+  }
+  .btn-primary:active:not(:disabled) {
+    transform: scale(0.975);
+  }
+  .btn-primary:disabled {
+    opacity: 0.4;
+  }
+
+  .btn-secondary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 52px;
+    padding-inline: 20px;
+    border-radius: var(--radius-chip);
+    background: var(--color-card);
+    color: var(--color-ink);
+    border: 1px solid var(--color-line);
+    font-size: 16px;
+    font-weight: 600;
+    transition: transform 0.12s ease;
+  }
+  .btn-secondary:active {
+    transform: scale(0.975);
+  }
+
+  .btn-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 40px;
+    padding-inline: 18px;
+    border-radius: var(--radius-chip);
+    background: var(--color-accent);
+    color: var(--color-accent-ink);
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    height: 30px;
+    padding-inline: 12px;
+    border-radius: var(--radius-chip);
+    background: var(--color-fill);
+    color: var(--color-ink-soft);
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .label-muted {
+    color: var(--color-ink-muted);
+    font-size: 15px;
+    font-weight: 400;
+  }
+
+  .section-title {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+  }
+
+  /* Horizontal snap carousel used by the Home stats block and food detail. */
+  .snap-row {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  .snap-row::-webkit-scrollbar {
+    display: none;
+  }
+  .snap-page {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+  }
+
+  .hairline + .hairline {
+    border-top: 1px solid var(--color-line);
+  }
+}
+
+@layer utilities {
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .no-select {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
