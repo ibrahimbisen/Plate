@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useRef, useState, useTransition } from 'react'
 
 import { createLog } from '@/app/actions/log'
-import { CameraIcon, ImageIcon, LabelIcon, SparkleIcon } from '@/components/icons'
+import { BarcodeIcon, CameraIcon, ImageIcon, LabelIcon, SparkleIcon } from '@/components/icons'
 import { ScreenHeader } from '@/components/screen-header'
 import { downscaleImage } from '@/lib/capture/resize'
 import { formatKcal } from '@/lib/metrics'
@@ -189,6 +189,8 @@ export function ScanFlow({ aiEnabled }: { aiEnabled: boolean }) {
           </div>
         )}
 
+        {/* Mode switcher. Barcode is a separate screen because it needs a live
+            camera stream, while the other two use the native photo picker. */}
         <div className="flex gap-1 rounded-full bg-fill p-1">
           {(
             [
@@ -208,6 +210,13 @@ export function ScanFlow({ aiEnabled }: { aiEnabled: boolean }) {
               {label}
             </button>
           ))}
+          <Link
+            href="/log/barcode"
+            className="flex h-11 flex-1 items-center justify-center gap-2 rounded-full text-[15px] font-semibold text-ink-muted"
+          >
+            <BarcodeIcon size={18} />
+            Barcode
+          </Link>
         </div>
 
         <div className="card flex flex-col items-center gap-4 px-6 py-10 text-center">

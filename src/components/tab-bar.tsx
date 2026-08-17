@@ -25,7 +25,7 @@ const TABS = [
 
 const ACTIONS = [
   { href: '/log/exercise', label: 'Log exercise', Icon: DumbbellIcon },
-  { href: '/log/saved', label: 'Saved foods', Icon: BookmarkIcon },
+  { href: '/log/barcode', label: 'Scan barcode', Icon: BarcodeIcon },
   { href: '/log/search', label: 'Food Database', Icon: SearchIcon },
   { href: '/log/scan', label: 'Scan food', Icon: ScanIcon },
 ]

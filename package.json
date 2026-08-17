@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.117.1",
+    "barcode-detector": "^3.2.2",
     "better-sqlite3": "^13.0.3",
     "drizzle-orm": "^0.45.2",
     "jose": "^6.2.9",
