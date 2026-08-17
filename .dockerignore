@@ -1,0 +1,13 @@
+node_modules
+.next
+.git
+.env
+.env.local
+data
+dev.log
+tests
+Cal AI screenshots
+*.md
+!README.md
+.DS_Store
+._*

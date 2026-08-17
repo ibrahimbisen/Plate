@@ -15,6 +15,12 @@ export const metadata: Metadata = {
   },
   manifest: '/manifest.webmanifest',
   formatDetection: { telephone: false },
+  // iOS never reads manifest icons. Without this it screenshots the page and
+  // uses that as a blurry home-screen icon.
+  icons: {
+    apple: [{ url: '/icons/apple-touch-icon.png', sizes: '180x180' }],
+    icon: [{ url: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' }],
+  },
 }
 
 export const viewport: Viewport = {

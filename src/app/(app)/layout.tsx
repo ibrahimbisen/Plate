@@ -1,3 +1,4 @@
+import { ServiceWorkerBridge } from '@/components/service-worker'
 import { TabBar } from '@/components/tab-bar'
 import { requireUser } from '@/lib/dal'
 
@@ -12,6 +13,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         <div className="app-shell">{children}</div>
       </div>
       <TabBar initials={initials} />
+      <ServiceWorkerBridge />
     </div>
   )
 }
